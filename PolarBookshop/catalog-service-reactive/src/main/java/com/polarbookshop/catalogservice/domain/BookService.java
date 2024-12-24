@@ -28,7 +28,7 @@ public class BookService {
                     if (exist) {
                         return Mono.error(new BookAlreadyExistsException(book.isbn()));
                     }
-                    return bookRepository.save(book).log();
+                    return bookRepository.save(book);
                 });
     }
 
@@ -52,7 +52,7 @@ public class BookService {
                             existingBook.lastModifiedBy(),
                             existingBook.version());
                     return bookRepository.save(bookToUpdate);
-                }).log().switchIfEmpty(addBookToCatalog(book));
+                }).switchIfEmpty(addBookToCatalog(book));
     }
 
 }
